@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop — reading exercises</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/dist/tabler-icons.min.css" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f8fafc;
+      --color-background-tertiary: #e8edf3;
+      --color-text-primary: #0f172a;
+      --color-text-secondary: #64748b;
+      --color-border-tertiary: rgba(0,0,0,0.12);
+      --color-border-secondary: rgba(0,0,0,0.25);
+      --border-radius-md: 8px;
+      --border-radius-lg: 12px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-background-primary: #1e1e2e;
+        --color-background-secondary: #181825;
+        --color-background-tertiary: #11111b;
+        --color-text-primary: #cdd6f4;
+        --color-text-secondary: #a6adc8;
+        --color-border-tertiary: rgba(255,255,255,0.1);
+        --color-border-secondary: rgba(255,255,255,0.22);
+      }
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-background-secondary);
+      color: var(--color-text-primary);
+      min-height: 100vh;
+    }
+    #root { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; }
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+    .sticky-timer { position: sticky; top: 0; z-index: 100; }
+    button { font-family: var(--font-sans); }
+    pre { font-family: var(--font-sans); }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const EMAIL_TEXT = `FROM: Marcus Webb — head of operations
+TO: All staff
+SUBJECT: Project Phoenix — Q2 update and important action items
+
+Hi everyone,
+
+I hope this email finds you well after what I know has been an incredibly busy period across the organisation. Before anything else, a genuine thank you to all teams involved in the preparatory stages of Project Phoenix. Your dedication has not gone unnoticed, and senior leadership has been extremely pleased with the effort put in so far.
+
+I know many of you have been waiting for a substantive update on where things stand, and I apologise for the delay. There were a number of internal discussions that needed to take place first, and we wanted to make sure we were sharing accurate and complete information rather than rushing something out that might be incomplete.
+
+So, here is where we are.
+
+First, and probably the most significant item from a planning perspective: the decision has been made to push the Phase 2 launch date back by three weeks. The new target date is the 14th of August. This was not a decision the steering committee took lightly. After careful input from the technical leads and a thorough review of integration test results, it was agreed that the additional three weeks gives us the time we need to properly quality-assure the new system connections and reduce the risk of a disruptive rollout. I know some teams have already begun adjusting their workflows in anticipation of the original date, and I am sorry for any knock-on inconvenience. Your line managers will be reaching out individually over the coming week to discuss what the revised date means for your specific teams.
+
+Secondly, I want to address the budget position directly, as I know it has been a subject of some corridor conversation. Project Phoenix has come in slightly above the original projection. The overrun stands at approximately 12% of the original budget. This relates primarily to additional licensing costs for third-party data migration tools that the technical team identified as necessary following the audit in May. Finance have reviewed the position and are satisfied that it falls within acceptable parameters. Critically — and I want to be clear about this — there will be no impact on headcount as a result of this overrun.
+
+Thirdly, I want everyone to be aware that mandatory training sessions will be delivered for all staff who will interact with the new system. These will take place in the weeks immediately following the August launch, and attendance is required — not optional. Your managers will coordinate scheduling over the next fortnight. Each session will run for approximately two hours and will be divided into two cohorts: client-facing staff and back-office staff. Full details on timing and format will follow.
+
+One additional item: the internal communications team is running a short survey on how staff would prefer to receive project updates going forward. If you have not yet completed it, please take five minutes to do so. It is available on the company intranet under the Transformation Hub section. Your input will genuinely shape how we communicate in future.
+
+I want to close by saying that Project Phoenix is not simply a technology upgrade. It represents a meaningful shift in how we operate and serve our customers. Your patience and professionalism throughout this process is appreciated more than I can easily express. I look forward to sharing further updates as we approach the August milestone.
+
+As always, if you have questions, please go to your line manager in the first instance, or feel free to reach out to me directly.
+
+Thank you,
+
+Marcus Webb
+Head of operations`;
+
+const NEWSLETTER_TEXT = `[Company name] — internal quarterly newsletter, issue 14
+From Sarah Okafor, chief executive officer
+
+Dear team,
+
+I am writing to you at what I believe is a genuinely significant moment for our organisation. I am aware that might sound like the kind of sentence that opens every quarterly update. I want to assure you: this time it is not a formality. Please read this carefully.
+
+Let me start with the financial picture, because I know many of you have been tracking it closely.
+
+Q2 was a mixed quarter. Revenue came in at £4.2 million, which represents a 6% shortfall against our Q2 target. I am not going to dress that up — we set ambitious goals and we did not fully meet them. What I want to put alongside that figure is the picture beneath it. Our gross margin improved by 3 percentage points compared to the same period last year, meaning the revenue we generated was more profitable than before. Our subscription retention rate reached 91% — the highest figure we have ever recorded. And our Net Promoter Score reached 72, placing us firmly in the excellent category by industry benchmarks. The headline number was not where we wanted it. The underlying business is in genuinely good health.
+
+Now I want to address the question I have been hearing most often through listening sessions and our latest engagement survey: what is our strategy in the face of rapid AI adoption across our sector? People are asking whether their roles are safe. They are asking whether leadership has thought this through carefully.
+
+Here is our position, in plain terms. We are not going to replace people with AI. We are going to invest in helping our people use AI better than our competitors. Starting in September, we are launching the Skills Forward Programme — a twelve-month structured initiative that gives every employee in this organisation access to AI literacy training, digital upskilling workshops, and one-to-one coaching on integrating new tools into their specific role. We have committed £380,000 to this programme. That investment reflects our firm belief that the human expertise in this organisation is our single most valuable asset, and we intend to protect and develop it.
+
+On the topic of structure: the consolidation of our Manchester and Leeds account management teams into a single Northern Region unit is now complete. I want to acknowledge that this was not a straightforward transition for everyone involved, and I want to thank both teams for the professionalism and adaptability they showed throughout. The new structure is already producing early positive results — better collaboration between colleagues and improved response times for our Northern clients.
+
+For Q3, our three priorities are clear. First, we will be driving new business in the healthcare and education sectors, where our pipeline analysis has identified the strongest opportunity. Second, we will complete the rollout of our new client portal, which has been in limited beta since April and is performing well in testing. Third, we will prepare for our ISO 27001 re-certification in October — a significant but necessary commitment. I am conscious that many teams are already at capacity, and we are actively reviewing resource allocation to ensure we are not stretching people beyond what is sustainable.
+
+On a genuinely positive note to close: we have been shortlisted for the People First Employer Award by the Institute of Workplace Excellence. This reflects the sustained work our People and Culture team — under James Hartley's leadership — has done to build an environment where people feel supported, heard, and valued. We have not won yet. But the shortlisting is an honour, and it reflects something true about who we are as an organisation.
+
+The companies that come through periods of disruption strongest are not always those with the most sophisticated technology. They are the ones with the most resilient, most adaptive, most collaborative people. I see that quality in this organisation every single day.
+
+Thank you for everything you do.
+
+Sarah Okafor
+Chief executive officer`;
+
+const ARTICLE_TEXT = `The arctic vault protecting the world's food future
+
+Buried deep inside a frozen mountain on the Norwegian archipelago of Svalbard, less than 1,300 kilometres from the North Pole, lies one of the most consequential buildings on earth. The Svalbard Global Seed Vault holds over 1.3 million seed samples from nearly every country in the world — a backup copy of the planet's agricultural heritage, stored at minus 18 degrees Celsius and designed to survive virtually any catastrophe humanity might face.
+
+Opened in 2008, the vault was conceived as insurance against the permanent loss of crop diversity. Every year, thousands of plant varieties disappear from cultivation — not always because they stop existing in the wild, but because the seed banks that preserve them are vulnerable. Fires, floods, funding cuts, political instability, and plain administrative failure have all caused seed banks to lose irreplaceable collections. The Svalbard vault was designed to be different: remote, passively cooled by surrounding permafrost, and governed by an international agreement that keeps it politically neutral and accessible to all depositing nations.
+
+The case for the vault rests on a sobering observation about modern farming. Just three crops — wheat, rice, and maize — provide more than half of the world's caloric intake. Within those crops, the genetic diversity farmed commercially has narrowed dramatically over the last century as industrial agriculture selected for high-yield, standardised varieties. That narrowing is dangerous. A disease or pest that targets a genetically uniform crop can sweep through global harvests with devastating speed. The Irish Potato Famine of the 1840s — caused by a single pathogen spreading through genetically identical potatoes — killed approximately one million people and forced another million to emigrate. Without diverse genetic reserves to draw on, scientists warn that modern equivalents are not a remote possibility. They are a predictable outcome.
+
+The vault has already been called upon. In 2015, the international centre that held one of the world's most significant collections of ancient wheat and barley varieties — based near Aleppo — was forced to withdraw its deposits from Svalbard after its Syrian facility was damaged in the civil war. It was the first withdrawal in the vault's history. Seeds were transferred to a temporary facility in Morocco, regenerated by scientists working under considerable pressure, and eventually re-deposited back in Svalbard. The episode was widely read as proof of concept — and as a sharp warning about how quickly the need for that proof can materialise.
+
+The vault has also faced threats from unexpected directions. In 2016, a period of unusually warm weather caused the permafrost at the entrance of the mountain to thaw, and meltwater flooded the access tunnel. The seed chambers themselves were unaffected — the tunnel slopes away from the storage area — but the event shook long-held assumptions about the facility's resilience. A vault conceived as passively safe, relying on the permanent cold of the Arctic, had been compromised by rising temperatures. Norway subsequently invested in a major programme of upgrades, including waterproofing, drainage infrastructure, and active refrigeration to supplement the passive cooling. The incident illustrated a broader irony: an institution built to protect the world from the consequences of climate change had been threatened by climate change itself.
+
+Today the vault continues to grow. New deposits arrive from governments, universities, and international agricultural bodies. Among the most recent additions are heritage varieties from Pacific Island nations — communities already facing existential threats from rising sea levels, whose traditional crop varieties encode millennia of genetic adaptation to specific island environments. Their seeds may prove critical as farming regions across the world seek to adapt to changing conditions.
+
+For those who study food systems, the Svalbard vault stands for something beyond practical storage. It is evidence that institutions can be built with a genuinely long time horizon — that societies are capable, when they choose to be, of making decisions whose value will not be realised for decades or centuries. The seeds in those chambers hold little value today. They are an investment in a future that nobody can precisely describe: one in which a changing climate, a new pathogen, or the failure of industrial monocultures makes the genetic diversity quietly banked at the top of the world the most important inheritance humanity ever left itself.`;
+
+const EXERCISES = [
+  {
+    id: 1, tab: "Email", label: "Internal email", icon: "ti-mail",
+    instruction: "Read the email carefully. Identify and write down the 3 most important points.",
+    tasks: ["3 key points from the email"],
+    content: EMAIL_TEXT,
+    bgColor: "#E6F1FB", midColor: "#185FA5", darkColor: "#0C447C",
+  },
+  {
+    id: 2, tab: "CEO newsletter", label: "CEO newsletter", icon: "ti-news",
+    instruction: "Read the CEO newsletter. Identify and write down the 3 most important takeaways for staff.",
+    tasks: ["3 key takeaways from the newsletter"],
+    content: NEWSLETTER_TEXT,
+    bgColor: "#EEEDFE", midColor: "#534AB7", darkColor: "#3C3489",
+  },
+  {
+    id: 3, tab: "Article", label: "Article", icon: "ti-article",
+    instruction: "Read the article. Identify 3 key points AND write a one-sentence summary of the entire piece.",
+    tasks: ["3 key points", "One-sentence summary"],
+    content: ARTICLE_TEXT,
+    bgColor: "#E1F5EE", midColor: "#0F6E56", darkColor: "#085041",
+  },
+];
+
+const DURATION = 180;
+
+function App() {
+  const [current, setCurrent] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(DURATION);
+  const [running, setRunning] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const intervalRef = useRef(null);
+  const ex = EXERCISES[current];
+
+  useEffect(() => {
+    clearInterval(intervalRef.current);
+    setTimeLeft(DURATION);
+    setRunning(false);
+    setFinished(false);
+  }, [current]);
+
+  useEffect(() => {
+    if (running) {
+      intervalRef.current = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            clearInterval(intervalRef.current);
+            setRunning(false);
+            setFinished(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [running]);
+
+  const mins = Math.floor(timeLeft / 60);
+  const secs = timeLeft % 60;
+  const timeStr = `${String(mins).padStart(2,"0")}:${String(secs).padStart(2,"0")}`;
+  const pct = Math.round(((DURATION - timeLeft) / DURATION) * 100);
+  const isWarning = timeLeft <= 30 && !finished;
+
+  const handleReset = () => {
+    clearInterval(intervalRef.current);
+    setTimeLeft(DURATION);
+    setRunning(false);
+    setFinished(false);
+  };
+
+  const S = {
+    card: {
+      background: "var(--color-background-primary)",
+      border: "0.5px solid var(--color-border-tertiary)",
+      borderRadius: "var(--border-radius-lg)",
+    },
+    btn: (active, mid) => ({
+      display: "flex", alignItems: "center", gap: 6,
+      padding: "8px 16px",
+      borderRadius: "var(--border-radius-md)",
+      border: active ? `2px solid ${mid}` : "0.5px solid var(--color-border-tertiary)",
+      background: active ? EXERCISES.find(e=>e.midColor===mid)?.bgColor || "transparent" : "var(--color-background-primary)",
+      color: active ? EXERCISES.find(e=>e.midColor===mid)?.darkColor || mid : "var(--color-text-secondary)",
+      fontSize: 14, fontWeight: active ? 500 : 400, cursor: "pointer",
+    }),
+  };
+
+  return (
+    <div style={{ fontFamily: "var(--font-sans)" }}>
+      <h2 className="sr-only">Workshop reading exercises with 3-minute timer</h2>
+
+      {/* Page header */}
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 500, color: "var(--color-text-primary)", marginBottom: 4 }}>
+          Workshop exercises
+        </h1>
+        <p style={{ fontSize: 14, color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+          Select an exercise, then press Start. You have 3 minutes to read and identify your key points.
+        </p>
+      </div>
+
+      {/* Exercise tabs */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+        {EXERCISES.map((e, i) => {
+          const active = current === i;
+          return (
+            <button key={e.id} onClick={() => setCurrent(i)} style={{
+              display: "flex", alignItems: "center", gap: 6,
+              padding: "9px 18px",
+              borderRadius: "var(--border-radius-md)",
+              border: active ? `2px solid ${e.midColor}` : "0.5px solid var(--color-border-tertiary)",
+              background: active ? e.bgColor : "var(--color-background-primary)",
+              color: active ? e.darkColor : "var(--color-text-secondary)",
+              fontSize: 14, fontWeight: active ? 500 : 400, cursor: "pointer",
+            }}>
+              <i className={`ti ${e.icon}`} aria-hidden="true" style={{ fontSize: 16 }} />
+              Exercise {e.id} — {e.tab}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Sticky timer bar */}
+      <div className="sticky-timer" style={{ marginBottom: 16 }}>
+        <div style={{
+          ...S.card,
+          padding: "14px 20px",
+          display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap",
+        }}>
+          <div style={{
+            fontSize: 42, fontWeight: 500, fontVariantNumeric: "tabular-nums",
+            minWidth: 100, lineHeight: 1,
+            color: finished ? "#A32D2D" : isWarning ? "#854F0B" : "var(--color-text-primary)",
+          }}>
+            {timeStr}
+          </div>
+
+          <div style={{ flex: 1, minWidth: 100 }}>
+            <div style={{
+              height: 8, background: "var(--color-background-tertiary)",
+              borderRadius: 4, overflow: "hidden", marginBottom: 6,
+            }}>
+              <div style={{
+                height: "100%", width: `${pct}%`,
+                background: finished ? "#E24B4A" : isWarning ? "#EF9F27" : ex.midColor,
+                borderRadius: 4, transition: "width 1s linear",
+              }} />
+            </div>
+            <div style={{ fontSize: 12, color: "var(--color-text-secondary)" }}>
+              {finished
+                ? <span style={{ color: "#A32D2D", fontWeight: 500 }}>Time's up</span>
+                : running
+                  ? isWarning
+                    ? <span style={{ color: "#854F0B", fontWeight: 500 }}>Less than 30 seconds — wrap up</span>
+                    : `${pct}% elapsed`
+                  : timeLeft === DURATION ? "Timer ready" : "Timer paused"}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+            {!finished && (
+              <button onClick={() => setRunning(r => !r)} style={{
+                display: "flex", alignItems: "center", gap: 6,
+                padding: "8px 18px",
+                borderRadius: "var(--border-radius-md)",
+                border: `2px solid ${ex.midColor}`,
+                background: running ? ex.midColor : "transparent",
+                color: running ? "#fff" : ex.midColor,
+                fontSize: 14, fontWeight: 500, cursor: "pointer",
+              }}>
+                <i className={`ti ${running ? "ti-player-pause" : "ti-player-play"}`} aria-hidden="true" style={{ fontSize: 16 }} />
+                {running ? "Pause" : timeLeft === DURATION ? "Start" : "Resume"}
+              </button>
+            )}
+            <button onClick={handleReset} style={{
+              display: "flex", alignItems: "center", gap: 6,
+              padding: "8px 14px",
+              borderRadius: "var(--border-radius-md)",
+              border: "0.5px solid var(--color-border-secondary)",
+              background: "transparent",
+              color: "var(--color-text-secondary)",
+              fontSize: 14, cursor: "pointer",
+            }}>
+              <i className="ti ti-refresh" aria-hidden="true" style={{ fontSize: 16 }} />
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Time's up banner */}
+      {finished && (
+        <div style={{
+          background: "#FCEBEB", border: "0.5px solid #F09595",
+          borderRadius: "var(--border-radius-md)",
+          padding: "14px 18px", marginBottom: 16,
+          display: "flex", alignItems: "center", gap: 12,
+          color: "#791F1F", fontWeight: 500, fontSize: 15,
+        }}>
+          <i className="ti ti-alarm" aria-hidden="true" style={{ fontSize: 22, flexShrink: 0 }} />
+          <span>
+            Pens down — be ready to share your {ex.id === 3 ? "3 points and your one-sentence summary" : "3 points"} with the group.
+          </span>
+        </div>
+      )}
+
+      {/* Instruction card */}
+      <div style={{
+        background: ex.bgColor,
+        border: `0.5px solid ${ex.midColor}50`,
+        borderRadius: "var(--border-radius-lg)",
+        padding: "18px 22px", marginBottom: 16,
+        display: "flex", gap: 14, alignItems: "flex-start",
+      }}>
+        <i className={`ti ${ex.icon}`} aria-hidden="true" style={{ fontSize: 24, color: ex.midColor, marginTop: 2, flexShrink: 0 }} />
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: ex.darkColor, textTransform: "uppercase", marginBottom: 5 }}>
+            Exercise {ex.id} · {ex.label}
+          </div>
+          <div style={{ fontSize: 15, color: ex.darkColor, lineHeight: 1.65, marginBottom: 12 }}>
+            {ex.instruction}
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {ex.tasks.map((t, i) => (
+              <span key={i} style={{
+                display: "inline-flex", alignItems: "center", gap: 5,
+                background: ex.midColor, color: "#fff",
+                padding: "4px 12px", borderRadius: 20,
+                fontSize: 12, fontWeight: 500,
+              }}>
+                <i className="ti ti-check" aria-hidden="true" style={{ fontSize: 13 }} />
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Reading content */}
+      <div style={{
+        background: "var(--color-background-primary)",
+        border: "0.5px solid var(--color-border-tertiary)",
+        borderLeft: `4px solid ${ex.midColor}`,
+        borderRadius: "var(--border-radius-lg)",
+        padding: "28px 32px",
+      }}>
+        <pre style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 15, lineHeight: 1.9,
+          color: "var(--color-text-primary)",
+          whiteSpace: "pre-wrap", margin: 0,
+        }}>
+          {ex.content}
+        </pre>
+      </div>
+
+      <div style={{ marginTop: 16, fontSize: 12, color: "var(--color-text-secondary)", textAlign: "center" }}>
+        Reclaiming lost skills in the age of AI — workshop exercise pack
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
